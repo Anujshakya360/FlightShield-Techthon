@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightShield - Powered by AirVdart | AI-Driven Aircraft Safety</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>FlightShield</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#checker" class="nav-link">Risk Analysis</a>
+                <a href="#comparison" class="nav-link">Airlines</a>
+                <a href="#monitoring" class="nav-link">Live Monitor</a>
+                <a href="#blackbox" class="nav-link">FlightPulse</a>
+                <a href="#transparency" class="nav-link">Transparency</a>
+            </div>
+            <div class="nav-controls">
+                <button id="dark-mode-toggle" class="mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="transparency-toggle" class="transparency-toggle">
+                    <i class="fas fa-eye"></i>
+                    <span>Transparency</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-title">
+                <h1>🛡️ FlightShield</h1>
+                <div class="powered-by">Powered by AirVdart System</div>
+            </div>
+            <p class="hero-subtitle">Your AI-Powered Guardian in the Sky</p>
+            <p class="hero-tagline">Don't just fly. Fly informed.</p>
+            <div class="hero-buttons">
+                <button class="cta-button primary" onclick="navigateToChecker()">
+                    <i class="fas fa-shield-alt"></i>
+                    Analyze Flight Safety
+                </button>
+                <button class="cta-button secondary" onclick="navigateToMonitoring()">
+                    <i class="fas fa-chart-line"></i>
+                    Live Monitoring
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="monitored-flights">24,847</div>
+                    <div class="stat-label">Flights Monitored</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="ai-predictions">99.8%</div>
+                    <div class="stat-label">AI Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="incidents-prevented">156</div>
+                    <div class="stat-label">Incidents Prevented</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-animation">
+            <div class="aircraft-container">
+                <div class="aircraft">✈️</div>
+                <div class="flight-path"></div>
+            </div>
+            <div class="radar-animation">
+                <div class="radar-circle"></div>
+                <div class="radar-sweep"></div>
+                <div class="radar-blips">
+                    <div class="blip blip-1"></div>
+                    <div class="blip blip-2"></div>
+                    <div class="blip blip-3"></div>
+                </div>
+            </div>
+            <div class="live-metrics">
+                <div class="metric">
+                    <span class="metric-label">Altitude</span>
+                    <span class="metric-value" id="live-altitude">35,000 ft</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Speed</span>
+                    <span class="metric-value" id="live-speed">580 mph</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value status-normal">NORMAL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flight Risk Checker -->
+    <section id="checker" class="section">
+        <div class="container">
+            <h2 class="section-title">AI-Powered Risk Analysis</h2>
+            <p class="section-subtitle">Advanced filtering and safety assessment before you book</p>
+            <div class="checker-panel glass-panel">
+                <div class="flight-selection">
+                    <div class="input-group">
+                        <label for="airline-select">Select Airline</label>
+                        <select id="airline-select" onchange="updateFlights()">
+                            <option value="">Choose Airline</option>
+                        
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="flight-select">Select Flight</label>
+                        <select id="flight-select" onchange="displayFlightInfo()">
+                            <option value="">Choose Flight</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filters advanced-filters">
+                    <h3><i class="fas fa-sliders-h"></i> Advanced Safety Filters</h3>
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="age-filter">Aircraft Age</label>
+                            <input type="range" id="age-filter" min="0" max="30" value="30" onchange="applyFilters()">
+                            <span id="age-value">30 years</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="safety-filter">Safety Rating (1-10)</label>
+                            <input type="range" id="safety-rating-filter" min="1" max="10" value="1" onchange="applyFilters()">
+                            <span id="safety-rating-value">1+</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="pilot-hours-filter">Min Pilot Hours</label>
+                            <input type="range" id="pilot-hours-filter" min="0" max="3000" value="0" step="100" onchange="applyFilters()">
+                            <span id="pilot-hours-value">0 hrs</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="maintenance-filter">Max Days Since Maintenance</label>
+                            <input type="range" id="maintenance-filter" min="0" max="365" value="365" onchange="applyFilters()">
+                            <span id="maintenance-value">365 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Results Cards -->
+                <div id="flight-results" class="flight-results">
+                    <!-- Cards will be generated here -->
+                </div>
+
+                <!-- Selected Flight Detail -->
+                <div id="flight-detail" class="flight-detail" style="display: none;">
+                    <div class="detail-header">
+                        <h3 id="flight-title">Flight Details</h3>
+                        <div class="confidence-score">
+                            <span>Booking Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidence-fill"></div>
+                            </div>
+                            <span id="confidence-percentage">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-tabs">
+                        <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+                        <button class="tab-btn" onclick="showTab('maintenance')">Maintenance Logs</button>
+                        <button class="tab-btn" onclick="showTab('incidents')">Incident History</button>
+                        <button class="tab-btn" onclick="showTab('engine')">Engine Health</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="overview-tab" class="tab-panel active">
+                            <div class="overview-grid">
+                                <div class="overview-card">
+                                    <div class="card-icon"><i class="fas fa-plane"></i></div>
+                                    <div class="card-content">
+                                        <h4>Aircraft Age</h4>
+                                        <div id="aircraft-age" class="metric-value"></div>
+                                        <div class="tooltip-text">Aircraft older than 15 years require enhanced monitoring</div>
+                                    </div>
+                                </div>
+                                <div class="overview-card">
+                                    <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="card-content">
+                                        <h4>Pilot Experience</h4>
+                                        <div id="pilot-hours" class="metric-value"></div>
+                                        <button class="pilot-btn" onclick="showPilotModal()">View Full Profile</button>
+                                    </div>
+                                </div>
+                                <div class="overview-card">
+                                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                                    <div class="card-content">
+                                        <h4>AI Safety Score</h4>
+                                        <div id="ai-safety-score" class="metric-value"></div>
+                                        <div class="score-breakdown">
+                                            <div class="score-item">
+                                                <span>Maintenance: </span>
+                                                <span id="maintenance-score" class="score-value">0/10</span>
+                                            </div>
+                                            <div class="score-item">
+                                                <span>Pilot: </span>
+                                                <span id="pilot-score" class="score-value">0/10</span>
+                                            </div>
+                                            <div class="score-item">
+                                                <span>Aircraft: </span>
+                                                <span id="aircraft-score" class="score-value">0/10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="maintenance-tab" class="tab-panel">
+                            <div id="maintenance-logs" class="maintenance-logs">
+                                <!-- Maintenance data will be populated here -->
+                            </div>
+                        </div>
+
+                        <div id="incidents-tab" class="tab-panel">
+                            <div id="incident-logs" class="incident-logs">
+                                <!-- Incident data will be populated here -->
+                            </div>
+                        </div>
+
+                        <div id="engine-tab" class="tab-panel">
+                            <div class="engine-health-panel">
+                                <div class="health-score">
+                                    <h4>Engine Health Score</h4>
+                                    <div class="health-bar">
+                                        <div class="health-fill" id="engine-health-fill"></div>
+                                    </div>
+                                    <span id="engine-health-status">Normal</span>
+                                </div>
+                                <div class="contamination-panel">
+                                    <h4>Fuel Tank Cleanliness</h4>
+                                    <div class="contamination-meter">
+                                        <div class="contamination-fill" id="contamination-fill"></div>
+                                    </div>
+                                    <span id="contamination-percentage">0% contamination</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airline Comparison -->
+    <section id="comparison" class="section">
+        <div class="container">
+            <h2 class="section-title">Airline Safety Comparison</h2>
+            <div class="comparison-grid" id="comparison-grid">
+                <!-- Airline cards will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Black Box 2.0 Section -->
+    <section id="blackbox" class="section">
+        <div class="container">
+            <h2 class="section-title">Flight Pulse- Real-Time Data Stream</h2>
+            <p class="section-subtitle">Live monitoring of critical flight parameters with AI anomaly detection</p>
+            
+            <div class="blackbox-panel glass-panel">
+                <div class="data-stream-grid">
+                    <div class="stream-card">
+                        <h4><i class="fas fa-thermometer-half"></i> Atmospheric Temp</h4>
+                        <div class="live-chart" id="temp-chart">
+                            <canvas id="tempCanvas" width="300" height="150"></canvas>
+                        </div>
+                        <div class="current-value" id="current-temp">437psi</div>
+                    </div>
+                    <div class="stream-card">
+                        <h4><i class="fas fa-wave-square"></i>Runway Parameter</h4>
+                        <div class="live-chart" id="vibration-chart">
+                            <canvas id="vibrationCanvas" width="300" height="150"></canvas>
+                        </div>
+                        <div class="current-value" id="current-vibration">2.3 Hz</div>
+                    </div>
+                    <div class="stream-card">
+                        <h4><i class="fas fa-mountain"></i> Altitude vs Pressure</h4>
+                        <div class="live-chart" id="pressure-chart">
+                            <canvas id="pressureCanvas" width="300" height="150"></canvas>
+                        </div>
+                        <div class="current-value" id="current-pressure">14.7 PSI</div>
+                    </div>
+                    <div class="stream-card">
+                        <h4><i class="fas fa-tachometer-alt"></i> Speed Analysis</h4>
+                        <div class="live-chart" id="speed-chart">
+                            <canvas id="speedCanvas" width="300" height="150"></canvas>
+                        </div>
+                        <div class="current-value" id="current-speed">580 mph</div>
+                    </div>
+                </div>
+                
+                <div class="anomaly-detection">
+                    <h3><i class="fas fa-brain"></i> AI Anomaly Detection</h3>
+                    <div class="anomaly-status" id="anomaly-status">
+                        <div class="status-indicator normal">
+                            <i class="fas fa-check-circle"></i>
+                            <span>All Systems Operating Normally</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blackbox-controls">
+                    <button class="blackbox-btn" onclick="showPastLogs()">
+                        <i class="fas fa-history"></i>
+                        Access Past 5-min Logs
+                    </button>
+                    <button class="blackbox-btn" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        Export Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather-Aware Route System -->
+    <section id="weather" class="section">
+        <div class="container">
+            <h2 class="section-title">Weather-Aware Route Optimization</h2>
+            <p class="section-subtitle">Smart routing with real-time weather analysis</p>
+            
+            <div class="weather-panel glass-panel">
+                <div class="route-input">
+                    <div class="input-group">
+                        <label for="departure">Departure</label>
+                        <select id="departure">
+                            <option value="ktm">Kathmandu (KTM)</option>
+                            <option value="pkr">Pokhara (PKR)</option>
+                            <option value="bwn">Bhairahawa (BWN)</option>
+                            <option value="jkr">Janakpur (JKR)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="destination">Destination</label>
+                        <select id="destination">
+                            <option value="pkr">Pokhara (PKR)</option>
+                            <option value="ktm">Kathmandu (KTM)</option>
+                            <option value="lukla">Lukla (LUA)</option>
+                            <option value="jkr">Janakpur (JKR)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="weather-condition">Current Weather</label>
+                        <select id="weather-condition" onchange="updateRouteAnalysis()">
+                            <option value="clear">Clear Skies</option>
+                            <option value="cloudy">Cloudy</option>
+                            <option value="storm">Thunderstorm</option>
+                            <option value="fog">Heavy Fog</option>
+                            <option value="wind">High Winds</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="route-analysis" id="route-analysis">
+                    <div class="primary-route">
+                        <h4>Recommended Route</h4>
+                        <div class="route-details">
+                            <div class="route-metric">
+                                <span class="metric-label">Risk Level:</span>
+                                <span class="risk-level low">Low (12%)</span>
+                            </div>
+                            <div class="route-metric">
+                                <span class="metric-label">Estimated Delay:</span>
+                                <span class="delay-time">+5 minutes</span>
+                            </div>
+                            <div class="route-metric">
+                                <span class="metric-label">Weather Impact:</span>
+                                <span class="weather-impact minimal">Minimal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alternate-routes">
+                        <h5>Alternative Routes</h5>
+                        <div class="alt-route">
+                            <span>Route B: +15 min, Risk: 8%</span>
+                        </div>
+                        <div class="alt-route">
+                            <span>Route C: +25 min, Risk: 3%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weather-alerts" id="weather-alerts">
+                    <div class="alert-item weather-normal">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>Clear conditions ahead - All Systems Normal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engine Health Monitoring -->
+    <section id="monitoring" class="section">
+        <div class="container">
+            <h2 class="section-title">Nepal Aviation Integrated System Monitoring</h2>
+            <p class="section-subtitle">Real-time engine health and system status</p>
+            <div class="monitoring-panel glass-panel">
+                <div class="gauges-grid">
+                    <div class="gauge-container">
+                        <div class="gauge" id="temp-gauge">
+                            <div class="gauge-fill"></div>
+                            <div class="gauge-center">
+                                <span class="gauge-value" id="temp-value">0°C</span>
+                                <span class="gauge-label">Engine Temp</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge" id="fuel-gauge">
+                            <div class="gauge-fill"></div>
+                            <div class="gauge-center">
+                                <span class="gauge-value" id="fuel-value">0 PSI</span>
+                                <span class="gauge-label">Fuel Pressure</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge" id="hydraulic-gauge">
+                            <div class="gauge-fill"></div>
+                            <div class="gauge-center">
+                                <span class="gauge-value" id="hydraulic-value">0 PSI</span>
+                                <span class="gauge-label">Hydraulic Press.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+                
+                <div class="waste-fuel-system">
+                    <h3>Waste & Fuel System Status</h3>
+                    <div class="system-indicators">
+                        <div class="indicator" id="waste-indicator">
+                            <i class="fas fa-trash"></i>
+                            <span>Waste System</span>
+                            <div class="status-light"></div>
+                        </div>
+                        <div class="indicator" id="fuel-indicator">
+                            <i class="fas fa-gas-pump"></i>
+                            <span>Fuel System</span>
+                            <div class="status-light"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Transparency & Public Reports -->
+    <section id="transparency" class="section">
+        <div class="container">
+            <h2 class="section-title">Public Transparency Dashboard</h2>
+            <p class="section-subtitle">Safety reports and airline safety transparency</p>
+            
+            <div class="transparency-panel glass-panel">
+                <div class="transparency-controls">
+                    <div class="peace-mind">
+                        <h3><i class="fas fa-brain"></i> Peace Of Mind</h3>
+                        <p>"Relax! Your flight is monitored by AI 24/7."</p>
+                        <div class="monitoring-indicators">
+                            <div class="indicator active">
+                                <i class="fas fa-satellite"></i>
+                                <span>Data Reliability</span>
+                            </div>
+                            <div class="indicator active">
+                                <i class="fas fa-robot"></i>
+                                <span>AI Monitoring</span>
+                            </div>
+                            <div class="indicator active">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Safety Alerts</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transparency-tabs">
+                    <button class="transparency-tab active" onclick="showTransparencyTab('reports')">
+                        <i class="fas fa-comments"></i> Passenger Reports
+                    </button>
+                    <button class="transparency-tab" onclick="showTransparencyTab('ratings')">
+                        <i class="fas fa-star"></i> Flight Ratings
+                    </button>
+                    <button class="transparency-tab" onclick="showTransparencyTab('incidents')">
+                        <i class="fas fa-exclamation-triangle"></i> Incident Explorer
+                    </button>
+                    <button class="transparency-tab" onclick="showTransparencyTab('comparison')">
+                        <i class="fas fa-chart-bar"></i> Airline Comparison
+                    </button>
+                </div>
+                
+                <div class="transparency-content">
+                    <div id="reports-panel" class="transparency-panel-content active">
+                        <h4>Anonymous Passenger Reports</h4>
+                        <div class="reports-list" id="passenger-reports">
+                            <!-- Reports will be populated here -->
+                        </div>
+                        <div class="report-form">
+                            <h5>Submit Anonymous Report</h5>
+                            <textarea id="report-text" placeholder="Describe any safety concerns during your flight..."></textarea>
+                            <button class="submit-report-btn" onclick="submitReport()">Submit Report</button>
+                        </div>
+                    </div>
+                    
+                    <div id="ratings-panel" class="transparency-panel-content">
+                        <h4>Flight Safety Ratings</h4>
+                        <div class="rating-form">
+                            <label>Rate your recent flight experience:</label>
+                            <div class="star-rating" id="star-rating">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <button class="submit-rating-btn" onclick="submitRating()">Submit Rating</button>
+                        </div>
+                        <div class="ratings-summary" id="ratings-summary">
+                            <!-- Ratings summary will be shown here -->
+                        </div>
+                    </div>
+                    
+                    <div id="incidents-panel" class="transparency-panel-content">
+                        <h4>Crash & Incident Explorer</h4>
+                        <div class="incident-filters">
+                            <select id="incident-airline-filter" onchange="filterIncidents()">
+                                <option value="all">All Airlines</option>
+                                <option value="yeti">Yeti Airlines</option>
+                                <option value="nepal">Nepal Airlines</option>
+                                <option value="buddha">Buddha Air</option>
+                            </select>
+                            <select id="incident-type-filter" onchange="filterIncidents()">
+                                <option value="all">All Types</option>
+                                <option value="engine">Engine Failure</option>
+                                <option value="weather">Weather Related</option>
+                                <option value="pilot">Pilot Error</option>
+                                <option value="maintenance">Maintenance Issue</option>
+                            </select>
+                        </div>
+                        <div class="incidents-list" id="incidents-list">
+                            <!-- Incidents will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div id="comparison-panel" class="transparency-panel-content">
+                        <h4>Live Airline Comparison</h4>
+                        <div class="comparison-chart" id="airline-comparison-chart">
+                            <!-- Comparison chart will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Live Alert Feed -->
+       
+        <div class="alert-content" id="alert-content">
+            <!-- Alerts will be populated here -->
+        </div>
+    </div>
+
+
+    <!-- Pilot Modal -->
+    <div id="pilot-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3>Pilot Information</h3>
+                <span class="close" onclick="closePilotModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="pilot-info">
+                <!-- Pilot information will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Anomaly Alert Modal -->
+  
+
+    <!-- Past Logs Modal -->
+    <div id="logs-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Past 5-Minute Logs</h3>
+                <span class="close" onclick="closeLogsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="logs-content" id="logs-content">
+                    <!-- Logs will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip"></div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlightShield ChatBot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Chatbot Toggle Button */
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffc8;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 18px;
+      cursor: pointer;
+      z-index: 999;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 255, 200, 0.4);
+    }
+
+    /* Chat Window */
+    .chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 380px;
+      height: 500px;
+      background: #101820;
+      color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 255, 200, 0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .chat-header {
+      background: #00ffc8;
+      color: #000;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 24px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      background: #0c1a25;
+      border-top: 1px solid #00ffc8;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .chat-input button {
+      background: #00ffc8;
+      border: none;
+      padding: 8px 12px;
+      margin-left: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .user {
+      text-align: right;
+      color: #00ffc8;
+    }
+
+    .bot {
+      text-align: left;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Toggle Button -->
+<button class="chat-toggle" onclick="toggleChat()">💬 Chat</button>
+
+<!-- Chatbot Box -->
+<div class="chatbot" id="chatbot">
+  <div class="chat-header">FlightShield AI Assistant</div>
+  <div class="chat-body" id="chatBody">
+    <div class="message bot">👋 Hello! How can I help you with your flight safety today?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  function toggleChat() {
+    const bot = document.getElementById("chatbot");
+    bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBody = document.getElementById("chatBody");
+
+    const userMsg = input.value.trim();
+    if (userMsg === "") return;
+
+    // Add user message
+    const userDiv = document.createElement("div");
+    userDiv.className = "message user";
+    userDiv.textContent = userMsg;
+    chatBody.appendChild(userDiv);
+
+    input.value = "";
+
+    // Add bot response (placeholder)
+    const botDiv = document.createElement("div");
+    botDiv.className = "message bot";
+    botDiv.textContent = "🤖 I'm thinking... (AI response coming soon)";
+    chatBody.appendChild(botDiv);
+
+    // Auto-scroll
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlightShield ChatBot</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    /* 💬 Toggle Button */
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffc8;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 18px;
+      cursor: pointer;
+      z-index: 999;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 255, 200, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .chat-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* 💠 Glassmorphism Chatbot */
+    .chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      height: 450px;
+      background: rgba(16, 24, 32, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 255, 200, 0.25);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: popup 0.4s ease;
+      z-index: 1000;
+    }
+
+    @keyframes popup {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .chat-header {
+      background: rgba(0, 255, 200, 0.9);
+      color: #000;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      border-bottom: 1px solid #00ffc8;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      background: rgba(12, 26, 37, 0.8);
+      border-top: 1px solid #00ffc8;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .chat-input button {
+      background: #00ffc8;
+      border: none;
+      padding: 8px 14px;
+      margin-left: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .message {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .user {
+      text-align: right;
+      color: #00ffc8;
+    }
+
+    .bot {
+      text-align: left;
+      color: #ccc;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .typing-dots::after {
+      content: '⠁⠂⠄';
+      animation: blink 1s infinite steps(1, start);
+    }
+
+    @keyframes blink {
+      0% { content: '⠁'; }
+      33% { content: '⠂'; }
+      66% { content: '⠄'; }
+    }
+    /* 💬 Enlarged Chat Toggle Button */
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00ffc8;
+  color: #000;
+  border: none;
+  border-radius: 40px;
+  padding: 14px 24px;
+  cursor: pointer;
+  z-index: 999;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 6px 20px rgba(0, 255, 200, 0.5);
+  transition: all 0.3s ease;
+}
+
+.chat-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px #00ffc8;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- 💬 Chat Toggle Button -->
+<button class="chat-toggle" onclick="toggleChat()">💬 AI ChatBot</button>
+
+<!-- 🧊 Glassmorphism Chatbot -->
+<div class="chatbot" id="chatbot">
+  <div class="chat-header">FlightShield AI Assistant</div>
+  <div class="chat-body" id="chatBody">
+    <div class="message bot">
+      👋 Hello! How can I assist you with flight safety today?
+      <div class="timestamp" id="time1"></div>
+    </div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') sendMessage()"/>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Sound Toggle Switch -->
+<div style="position: fixed; bottom: 100px; right: 20px; z-index: 999;">
+  <label style="color: #00ffc8; font-weight: bold;">
+    <input type="checkbox" id="soundToggle" checked />
+    🔊 Sound
+  </label>
+</div>
+
+<script>
+  let soundEnabled = true;
+
+  document.getElementById("soundToggle").addEventListener("change", function () {
+    soundEnabled = this.checked;
+  });
+
+  function playBotSound() {
+    if (!soundEnabled) return;
+    const audio = new Audio("https://www.myinstants.com/media/sounds/bleep.mp3");
+    audio.play();
+  }
+
+  // Example usage: call playBotSound() after bot sends a message
+</script>
+
+
+<script>
+  function toggleChat() {
+    const bot = document.getElementById("chatbot");
+    bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBody = document.getElementById("chatBody");
+    const userMsg = input.value.trim();
+
+    if (userMsg === "") return;
+
+    // Add user message
+    const userDiv = document.createElement("div");
+    userDiv.className = "message user";
+    userDiv.innerHTML = userMsg + `<div class="timestamp">${getCurrentTime()}</div>`;
+    chatBody.appendChild(userDiv);
+    input.value = "";
+
+    // Auto-scroll
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Add typing bot effect
+    const botTyping = document.createElement("div");
+    botTyping.className = "message bot typing-dots";
+    botTyping.textContent = "🤖";
+    chatBody.appendChild(botTyping);
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Simulate delay
+    setTimeout(() => {
+      botTyping.remove();
+
+      const botDiv = document.createElement("div");
+      botDiv.className = "message bot";
+      botDiv.innerHTML = getBotResponse(userMsg) + `<div class="timestamp">${getCurrentTime()}</div>`;
+      chatBody.appendChild(botDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+  }
+
+  function getBotResponse(message) {
+    message = message.toLowerCase();
+    if (message.includes("safety")) {
+      return "✈️ Our system checks aircraft age, engine health, and pilot experience to keep you safe!";
+    } else if (message.includes("hello") || message.includes("hi")) {
+      return "👋 Hello again! I'm your AI co-pilot.";
+    } else {
+      return "🤖 I'm learning! Soon I'll be able to answer anything about your flight.";
+    }
+  }
+
+  function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Set initial time
+  document.getElementById("time1").innerText = getCurrentTime();
+
+</script>
+
+
+
+<!-- 🌌 Glass Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>✈️ FlightShield</h2>
+      <p>Your AI-powered flight safety companion.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Credit</a>
+      <a href="#">Features</a>
+      <a href="#">Support</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-chart-bar"></i></a>
+      <a href="#"><i class="fab fa-check-circle"></i></a>
+      <a href="#"><i class="fab fa-exclamation-triangle"></i></a>
+      <a href="#"><i class="fab fa-satellite"></i></a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 FlightShield — Made with 💻 at Padmashree</div>
+</footer>
+
+
+
+</body>
+<style>
+    
+    
+    /* 🌌 Footer Glassmorphism */
+.footer {
+  background: rgba(0, 255, 200, 0.07);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 30px 20px 10px;
+  border-top: 1px solid rgba(0, 255, 200, 0.2);
+  text-align: center;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  gap: 20px;
+}
+
+.footer-brand h2 {
+  margin: 0;
+  color: #00ffc8;
+  font-size: 22px;
+}
+.footer-brand p {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.footer-links a,
+.footer-social a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #ccc;
+  transition: 0.3s;
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  color: #00ffc8;
+  text-shadow: 0 0 6px #00ffc8;
+}
+
+.footer-social i {
+  font-size: 18px;
+}
+
+.footer-copy {
+  color: #888;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+
+</style>
+</html>
